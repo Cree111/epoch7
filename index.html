@@ -116,12 +116,15 @@ h1 {
   border: 1px solid #1c2b35;
   border-radius: 12px;
   padding: 12px 10px;
+  min-width: 0;
 }
 
 .stat strong {
   display: block;
-  font-size: 19px;
+  font-size: clamp(12px, 3.5vw, 17px);
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  letter-spacing: -.035em;
 }
 
 .stat span {
@@ -232,7 +235,7 @@ footer {
   }
 
   .stat strong {
-    font-size: 17px;
+    font-size: 12px;
   }
 }
 </style>
@@ -271,12 +274,12 @@ footer {
       </div>
 
       <div class="stat">
-        <strong id="ahead">+0.00</strong>
+        <strong id="ahead">+0.000000</strong>
         <span>领先现实天数</span>
       </div>
 
       <div class="stat">
-        <strong id="elapsed">0.00</strong>
+        <strong id="elapsed">0.000000</strong>
         <span>现实经过天数</span>
       </div>
     </div>
@@ -520,11 +523,13 @@ function render() {
   const aheadDays =
     (accelerated.getTime() - now.getTime()) / 86400000;
 
+  // 领先现实天数：保留 6 位小数
   document.getElementById("ahead").textContent =
-    (aheadDays >= 0 ? "+" : "") + aheadDays.toFixed(2);
+    (aheadDays >= 0 ? "+" : "") + aheadDays.toFixed(6);
 
+  // 现实经过天数：保留 6 位小数
   document.getElementById("elapsed").textContent =
-    elapsedDays.toFixed(2);
+    elapsedDays.toFixed(6);
 
 
   // ----------------------------
