@@ -1,0 +1,714 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080d0b">
+<title>SELF EXCHANGE — EPOCH-7</title>
+<style>
+:root {
+  --bg: #080d0b;
+  --panel: #101814;
+  --panel2: #141f18;
+  --line: #24352b;
+  --green: #65f3a1;
+  --green2: #32bd78;
+  --muted: #84978b;
+  --white: #e6fff0;
+  --red: #ff7777;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 50% -15%, #183c2a 0%, transparent 48%),
+    var(--bg);
+  color: var(--white);
+  font-family: Inter, "Segoe UI", "Microsoft YaHei", sans-serif;
+  min-height: 100vh;
+}
+button { font: inherit; }
+a { color: inherit; text-decoration: none; }
+.page {
+  max-width: 1120px;
+  margin: auto;
+  padding: 28px 24px 60px;
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+.brand-icon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  color: var(--green);
+  background: #163a28;
+  font-size: 22px;
+}
+.brand small {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-top: 3px;
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.nav-right a:hover { color: var(--green); }
+.status {
+  color: var(--green);
+  border: 1px solid #286a45;
+  background: #10291c;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.hero {
+  padding: 58px 0 35px;
+}
+.eyebrow {
+  color: var(--green);
+  font-size: 11px;
+  letter-spacing: 3px;
+  font-weight: 700;
+}
+h1 {
+  font-size: clamp(42px, 8vw, 76px);
+  letter-spacing: -3px;
+  margin: 12px 0 8px;
+  line-height: 1;
+}
+h1 span { color: var(--green); }
+.subtitle {
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+.position {
+  border: 1px solid #31533e;
+  background: linear-gradient(135deg, #14251b, #0c130f 75%);
+  border-radius: 16px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.position:after {
+  content: "7X";
+  position: absolute;
+  right: 20px;
+  top: -28px;
+  font-size: 180px;
+  font-weight: 900;
+  color: rgba(101,243,161,.035);
+  pointer-events: none;
+}
+.position-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.muted-label {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+.long {
+  font-size: clamp(34px, 6vw, 54px);
+  font-weight: 900;
+  color: var(--green);
+  letter-spacing: -2px;
+  margin: 20px 0 4px;
+}
+.position-desc {
+  color: #a6c5b0;
+  font-size: 13px;
+  margin-top: 8px;
+}
+.position-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  margin-top: 34px;
+}
+.open-date {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+.infinite {
+  color: var(--green);
+  font-size: 26px;
+  font-weight: 800;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 14px 0 38px;
+}
+.stat {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 19px;
+}
+.stat-label {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.stat-value {
+  font-size: 28px;
+  font-weight: 800;
+  margin-top: 10px;
+}
+.stat-value.green { color: var(--green); }
+.stat-unit {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.section {
+  margin-top: 35px;
+}
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+.section-title {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: .5px;
+}
+.section-sub {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.action-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 21px;
+  transition: .2s;
+}
+.action-card:hover {
+  border-color: #4d9c6a;
+  transform: translateY(-2px);
+}
+.action-icon {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+.action-name {
+  font-size: 17px;
+  font-weight: 800;
+}
+.action-en {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+.action-desc {
+  font-size: 12px;
+  color: #9aafa1;
+  line-height: 1.7;
+  min-height: 42px;
+  margin: 12px 0 18px;
+}
+.buy-btn {
+  width: 100%;
+  background: #173c28;
+  color: var(--green);
+  border: 1px solid #2d7449;
+  border-radius: 7px;
+  padding: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: .2s;
+}
+.buy-btn:hover {
+  background: #225a39;
+}
+.buy-btn:active { transform: scale(.98); }
+.portfolio {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.portfolio-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 17px 20px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+.portfolio-row:last-child { border: 0; }
+.portfolio-row span:first-child { color: var(--muted); }
+.portfolio-row strong { color: var(--green); }
+.history {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.history-head, .history-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 14px 18px;
+  font-size: 12px;
+}
+.history-head {
+  color: var(--muted);
+  background: #141e18;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.history-item {
+  border-top: 1px solid var(--line);
+}
+.history-item span:first-child { color: var(--green); }
+.empty {
+  padding: 28px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+}
+.compound {
+  background: linear-gradient(120deg, #14271b, #101713);
+  border: 1px solid #294d36;
+  border-radius: 14px;
+  padding: 25px;
+}
+.compound h3 {
+  font-size: 21px;
+  margin: 0 0 10px;
+}
+.compound p {
+  color: #a1b7a8;
+  font-size: 13px;
+  line-height: 1.9;
+  margin: 0;
+}
+.warning {
+  border: 1px solid #593536;
+  background: #211416;
+  border-radius: 12px;
+  padding: 22px;
+}
+.warning h3 {
+  color: var(--red);
+  margin: 0 0 10px;
+  font-size: 15px;
+}
+.warning p {
+  color: #c6a3a3;
+  font-size: 12px;
+  line-height: 1.9;
+  margin: 0;
+}
+.warning .note {
+  color: #a9b2aa;
+  margin-top: 12px;
+}
+.footer {
+  border-top: 1px solid var(--line);
+  margin-top: 50px;
+  padding-top: 20px;
+  color: #65796c;
+  font-size: 10px;
+  line-height: 1.9;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+@media(max-width:700px) {
+  .page { padding: 20px 15px 40px; }
+  .nav-right { gap: 10px; font-size: 10px; }
+  .stats { grid-template-columns: repeat(2,1fr); }
+  .grid3 { grid-template-columns: 1fr; }
+  .action-desc { min-height: 0; }
+  .position { padding: 20px; }
+  .history-head, .history-item {
+    grid-template-columns: 1fr 1fr 1fr;
+    font-size: 10px;
+    padding: 13px 10px;
+  }
+  .footer { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="nav">
+    <div class="brand">
+      <div class="brand-icon">⌁</div>
+      <div>
+        EPOCH-7
+        <small>THE ACCELERATED CALENDAR</small>
+      </div>
+    </div>
+    <div class="nav-right">
+      <a href="./index.html">← HOME</a>
+      <span class="status">● PERSONAL MARKET</span>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">EPOCH-7 / EXCHANGE No.001</div>
+    <h1>SELF <span>/ TIME</span></h1>
+    <div class="subtitle">THE ONLY ASSET WORTH HOLDING IS YOURSELF.</div>
+  </header>
+
+  <section class="position">
+    <div class="position-top">
+      <div class="muted-label">CURRENT POSITION / YOURSELF</div>
+      <div class="status">● POSITION ACTIVE</div>
+    </div>
+    <div class="long">LONG 7X</div>
+    <div class="position-desc">
+      做多自己 · 长期持有 · 不设止盈期限
+    </div>
+    <div class="position-bottom">
+      <div>
+        <div class="muted-label">POSITION OPENED</div>
+        <div class="open-date">2026.11.16</div>
+      </div>
+      <div style="text-align:right">
+        <div class="muted-label">INVESTMENT HORIZON</div>
+        <div class="infinite">∞ FOREVER</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat">
+      <div class="stat-label">HOLDING DAYS</div>
+      <div class="stat-value" id="holdingDays">--</div>
+      <div class="stat-unit">现实持仓天数</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">EPOCH DAYS</div>
+      <div class="stat-value green" id="epochDays">--</div>
+      <div class="stat-unit">7X 纪元天数</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">TOTAL ACTIONS</div>
+      <div class="stat-value" id="totalActions">0</div>
+      <div class="stat-unit">累计加仓次数</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">LATEST ACTION</div>
+      <div class="stat-value green" id="latestAction" style="font-size:18px">--</div>
+      <div class="stat-unit" id="latestTime">等待第一次加仓</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-title">INCREASE YOUR POSITION</div>
+        <div class="section-sub">每一次真实行动，都是一次加仓。</div>
+      </div>
+      <div class="muted-label">BUY YOURSELF ↑</div>
+    </div>
+    <div class="grid3">
+      <div class="action-card">
+        <div class="action-icon">◈</div>
+        <div class="action-name">学习</div>
+        <div class="action-en">LEARNING</div>
+        <div class="action-desc">
+          投资知识、英语与认知。让未来的自己拥有更多选择。
+        </div>
+        <button class="buy-btn" onclick="addAction('学习')">+ BUY / 学习</button>
+      </div>
+      <div class="action-card">
+        <div class="action-icon">⌁</div>
+        <div class="action-name">行动</div>
+        <div class="action-en">EXECUTION</div>
+        <div class="action-desc">
+          把想法变成现实。完成任务、推进项目、兑现承诺。
+        </div>
+        <button class="buy-btn" onclick="addAction('行动')">+ BUY / 行动</button>
+      </div>
+      <div class="action-card">
+        <div class="action-icon">✳</div>
+        <div class="action-name">锻炼</div>
+        <div class="action-en">TRAINING</div>
+        <div class="action-desc">
+          投资身体与精力。增强体能，建立长期竞争力。
+        </div>
+        <button class="buy-btn" onclick="addAction('锻炼')">+ BUY / 锻炼</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-title">YOUR PORTFOLIO</div>
+        <div class="section-sub">你正在积累的资产。</div>
+      </div>
+      <div class="muted-label">ASSET ALLOCATION</div>
+    </div>
+    <div class="portfolio">
+      <div class="portfolio-row">
+        <span>学习 / KNOWLEDGE</span>
+        <strong id="learningCount">0 次</strong>
+      </div>
+      <div class="portfolio-row">
+        <span>行动 / EXECUTION</span>
+        <strong id="executionCount">0 次</strong>
+      </div>
+      <div class="portfolio-row">
+        <span>锻炼 / TRAINING</span>
+        <strong id="trainingCount">0 次</strong>
+      </div>
+      <div class="portfolio-row">
+        <span>持仓策略 / STRATEGY</span>
+        <strong>长期持有 ∞</strong>
+      </div>
+      <div class="portfolio-row">
+        <span>复利来源 / COMPOUNDING</span>
+        <strong>能力积累</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-title">COMPOUND INTEREST</div>
+        <div class="section-sub">复利不是一夜暴富，而是时间与积累的乘积。</div>
+      </div>
+      <div class="muted-label">LONG-TERM VALUE</div>
+    </div>
+    <div class="compound">
+      <h3>TIME × CONSISTENCY = COMPOUNDING</h3>
+      <p>
+        今天学习的知识，会成为明天解决问题的能力。<br>
+        今天完成的行动，会成为未来做事的经验。<br>
+        今天锻炼的身体，会成为长期生活的基础。<br>
+        <br>
+        你不需要每天都获得惊人的收益。只需要让自己持续积累，
+        让今天的能力成为明天的起点。
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-title">TRANSACTION HISTORY</div>
+        <div class="section-sub">你的每一次加仓记录。</div>
+      </div>
+      <div class="muted-label">LOCAL RECORDS</div>
+    </div>
+    <div class="history">
+      <div class="history-head">
+        <span>ASSET</span>
+        <span>TYPE</span>
+        <span>TIME</span>
+      </div>
+      <div id="historyList">
+        <div class="empty">NO TRANSACTIONS YET — START YOUR FIRST INVESTMENT.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-title">RISK MANAGEMENT</div>
+        <div class="section-sub">真正需要警惕的风险。</div>
+      </div>
+      <div class="muted-label">PROTECT YOUR POSITION</div>
+    </div>
+    <div class="warning">
+      <h3>⚠ LIQUIDATION RISK / 爆仓风险</h3>
+      <p>
+        真正的爆仓，不是今天休息了，也不是暂时走得慢了。
+        而是彻底放弃长期积累，反复消耗自己，
+        让短暂的欲望不断侵蚀长期目标。
+      </p>
+      <p class="note">
+        风控原则：允许休息，允许调整，允许重新开始。
+        不要为了追求每天的表现，把生活变成一场永无止境的绩效考核。
+        保护好自己，才能长期留在市场。
+      </p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>
+      EPOCH-7 · SELF EXCHANGE<br>
+      YOUR LIFE. YOUR TIME. YOUR DECISION.
+    </div>
+    <div style="text-align:right">
+      7X IS A SYMBOLIC GROWTH MULTIPLIER.<br>
+      NOT A FINANCIAL LEVERAGE OR RETURN PROMISE.
+    </div>
+  </footer>
+
+</div>
+
+<script>
+const OPEN_DATE = new Date(2026, 10, 16, 0, 0, 0, 0);
+const STORAGE_KEY = "epoch7_self_time_actions_v1";
+
+const labels = {
+  "学习": "LEARNING",
+  "行动": "EXECUTION",
+  "锻炼": "TRAINING"
+};
+
+function getActions() {
+  try {
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    return Array.isArray(data) ? data : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveActions(actions) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(actions));
+}
+
+function addAction(kind) {
+  const actions = getActions();
+
+  actions.unshift({
+    kind,
+    time: new Date().toISOString()
+  });
+
+  saveActions(actions);
+  render();
+}
+
+function formatDate(iso) {
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return "--";
+
+  return new Intl.DateTimeFormat("zh-CN", {
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  }).format(date);
+}
+
+function updatePosition() {
+  const now = new Date();
+
+  const elapsed = Math.max(0, now - OPEN_DATE);
+  const days = elapsed / 86400000;
+
+  document.getElementById("holdingDays").textContent =
+    days.toFixed(2);
+
+  document.getElementById("epochDays").textContent =
+    (days * 7).toFixed(2);
+}
+
+function render() {
+  updatePosition();
+
+  const actions = getActions();
+
+  const counts = {
+    "学习": 0,
+    "行动": 0,
+    "锻炼": 0
+  };
+
+  actions.forEach(item => {
+    if (Object.prototype.hasOwnProperty.call(counts, item.kind)) {
+      counts[item.kind]++;
+    }
+  });
+
+  document.getElementById("totalActions").textContent =
+    actions.length;
+
+  document.getElementById("learningCount").textContent =
+    counts["学习"] + " 次";
+
+  document.getElementById("executionCount").textContent =
+    counts["行动"] + " 次";
+
+  document.getElementById("trainingCount").textContent =
+    counts["锻炼"] + " 次";
+
+  const latest = actions[0];
+
+  document.getElementById("latestAction").textContent =
+    latest ? latest.kind : "--";
+
+  document.getElementById("latestTime").textContent =
+    latest ? formatDate(latest.time) : "等待第一次加仓";
+
+  const history = document.getElementById("historyList");
+
+  if (actions.length === 0) {
+    history.innerHTML =
+      '<div class="empty">NO TRANSACTIONS YET — START YOUR FIRST INVESTMENT.</div>';
+    return;
+  }
+
+  history.innerHTML = actions.slice(0, 30).map(item => {
+    const kind = labels[item.kind] || item.kind;
+
+    return `
+      <div class="history-item">
+        <span>SELF / TIME</span>
+        <span>${kind}</span>
+        <span>${formatDate(item.time)}</span>
+      </div>
+    `;
+  }).join("");
+}
+
+render();
+setInterval(updatePosition, 1000);
+</script>
+</body>
+</html>
